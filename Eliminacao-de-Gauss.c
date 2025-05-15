@@ -1,6 +1,26 @@
 #include <stdio.h>
 
-#define N 4  // Dimensão da matriz - NxN = 4x4
+#define N 4  /* Dimensão da matriz - NxN = 4x4 */
+
+void gauss(double A[N][N], double b[N]);
+
+int main()
+{
+     /* Matriz A (4x4) e vetor b */
+    double A[N][N] = {
+        {2, 2, 1, 1},
+        {1, -1, 2, -1},
+        {3, 2, -3, -2},
+        {4, 3, 2, 1}
+    };
+
+    double b[N] = {7, 1, 4, 12};
+
+     /* Resolver o sistema */
+    gauss(A, b);
+
+    return 0;
+}
 
 void gauss(double A[N][N], double b[N])
 {
@@ -9,7 +29,7 @@ void gauss(double A[N][N], double b[N])
     double x0[N];
     double x[N] = {0.5000, 2.0000, 0.9000, 1.2000};
 
-    // Eliminação de Gauss (triangular superior) - printa na tela a matriz, seus multiplicadores e a operação necessária para tornar uma matriz triangular superior
+     /* Eliminação de Gauss (triangular superior) - printa na tela a matriz, seus multiplicadores e a operação necessária para tornar uma matriz triangular superior */
     for (i = 0; i < N - 1; i++)
     {
         for (j = i + 1; j < N; j++)
@@ -37,14 +57,14 @@ void gauss(double A[N][N], double b[N])
     printf("\n\n");
     for (int s = 0; s < 6; s++)
     {
-        // Mostrar a solução - Printa todas as 6 soluções (Contando com a S-0)
+         /* Mostrar a solução - Printa todas as 6 soluções (Contando com a S-0) */
         printf("Solução do sistema S-%d: ", s);
         for (i = 0; i < N; i++)
         {
             printf("X%d = %.4f ", i + 1, x[i]);
         }
         printf("\n\n");
-        // Substituição regressiva - Descobre o valor das variaveis
+         /* Substituição regressiva - Descobre o valor das variaveis */
         x[N - 1] = b[N - 1] / A[N - 1][N - 1];
         for (i = N - 2; i >= 0; i--)
         {
@@ -57,22 +77,5 @@ void gauss(double A[N][N], double b[N])
             x[i] /= A[i][i];
         }
     }
-}
-int main()
-{
-    // Matriz A (4x4) e vetor b
-    double A[N][N] = {
-        {2, 2, 1, 1},
-        {1, -1, 2, -1},
-        {3, 2, -3, -2},
-        {4, 3, 2, 1}
-    };
-
-    double b[N] = {7, 1, 4, 12};
-
-    // Resolver o sistema
-    gauss(A, b);
-
-    return 0;
 }
 
