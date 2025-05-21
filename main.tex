@@ -1,0 +1,1388 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+\usepackage{amsmath, amsfonts, amssymb}
+
+\usepackage{times}
+\usepackage{geometry}
+\geometry{a4paper, left=3cm, top=3cm, right=2cm, bottom=2cm}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{ragged2e}
+\usepackage{parskip}
+\usepackage{ulem}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{minted}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+    \large
+    \textbf{UNIVERSIDADE DE PERNAMBUCO - UPE}\\
+    \textbf{ESCOLA POLITÉCNICA DE PERNAMBUCO - POLI}\\
+    \textbf{BACHARELADO EM ENGENHARIA DE CONTROLE E AUTOMAÇÃO}\\[3.5cm]
+
+    ALUNOS:\\
+    CAIO CÉSAR LEITE DE LIMA\\
+    GABRIEL NÓBREGA TOSCANO\\
+    RICARDO TIMOTEO WANDERLEY\\[2cm]
+
+    \textbf{\Large CÁLCULO NUMÉRICO:\\ SISTEMA DE EQUAÇÕES ALGÉBRICAS LINEARES}\\
+    \text{\Large RESOLUÇÃO DE SEALS POR MÉTODOS DIRETOS}
+\end{center}
+
+\vspace*{\fill}
+\begin{center}
+    RECIFE - PE\\
+    MAIO DE 2025
+\end{center}
+\end{titlepage}
+
+\begin{titlepage}
+\begin{center}
+    \large
+    ALUNOS:\\
+    CAIO CÉSAR LEITE DE LIMA\\
+    GABRIEL NÓBREGA TOSCANO\\
+    RICARDO TIMOTEO WANDERLEY\\[2cm]
+
+    TURMA AT\\[2cm]
+
+    \textbf{\Large CÁLCULO NUMÉRICO:\\ SISTEMA DE EQUAÇÕES ALGÉBRICAS LINEARES}\\
+    \text{\Large RESOLUÇÃO DE SEALS POR MÉTODOS DIRETOS}
+\end{center}
+
+\vspace{1cm}
+
+\begin{flushright}
+\begin{minipage}{0.5\textwidth}
+\justifying
+Atividade voltada à resolução de Sistemas de Equações Algébricas Lineares (SEALs), utilizando métodos diretos: Gauss, Fatoração LU e Cholesky. Solicitação do Prof. Dr. Jornandes Dias, na disciplina de Cálculo Numérico, como parte da avaliação da 1ª unidade.
+\end{minipage}
+\end{flushright}
+
+\vspace*{\fill}
+\begin{center}
+    RECIFE - PE\\
+    MAIO DE 2025
+\end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\noindent \section{1ª QUESTÃO} (0,5 PONTO): Resolver o sistema de equações utilizando a técnica de Eliminação de Gauss, com 4 casas decimais nos resultados.
+
+\[
+\begin{cases}
+2x_1 + 2x_2 + x_3 + x_4 = 7 \\
+x_1 - x_2 + 2x_3 - x_4 = 1 \\
+3x_1 + 2x_2 - 3x_3 - 2x_4 = 4 \\
+4x_1 + 3x_2 + 2x_3 + x_4 = 12
+\end{cases}
+\]
+\[
+S_x^{(0)} = (x_1^{(0)} = 0.5000,\ x_2^{(0)} = 2.0000,\ x_3^{(0)} = 0.9000,\ x_4^{(0)} = 1.2000)^t;
+\]
+
+\textbf{A.1)} Mostrar a metodologia de eliminação de Gauss.
+
+\textbf{A.2)} Fazer 6 soluções.
+
+\vspace{0.5cm}
+
+\subsection{Transformação do Sistema em Matriz}
+
+\[
+A = \begin{bmatrix}
+2 & 2 & 1 & 1 \\
+1 & -1 & 2 & -1 \\
+3 & 2 & -3 & -2 \\
+4 & 3 & 2 & 1
+\end{bmatrix}, \quad
+b = \begin{bmatrix}
+7 \\ 1 \\ 4 \\ 12
+\end{bmatrix};
+\]
+
+\subsection{Eliminação de Gauss}
+
+\subsubsection{Transformar em matriz triangular superior:}
+
+Consiste em isolar as incógnitas para descobrir seus respectivos valores.
+
+\subsubsection{Calcular multiplicadores (linha 1)}
+
+Calcula o valor do multiplicador que é usado para zerar os elementos abaixo do pivô de cada linha.
+
+\[
+m_{21} = \frac{1}{2} = 0.5000, \quad m_{31} = \frac{3}{2} = 1.5000, \quad m_{41} = \frac{4}{2} = 2.0000;
+\]
+
+\subsubsection{Zerar elementos abaixo do pivô (coluna 1)}
+
+\[
+\begin{aligned}
+L_2 &\leftarrow L_2 - m_{21} \cdot L_1 \\
+L_3 &\leftarrow L_3 - m_{31} \cdot L_1
+\end{aligned}
+\]
+
+\[
+A^{(1)} = \begin{bmatrix}
+2.0000 & 2.0000 & 1.0000 & 1.0000 \\
+0 & -2.0000 & 1.5000 & -1.5000 \\
+0 & -1.0000 & -4.5000 & -3.5000 \\
+0 & -1.0000 & 0 & -1.0000
+\end{bmatrix},
+\quad
+b^{(1)} = \begin{bmatrix}
+7.0000 \\ -2.5000 \\ -6.5000 \\ -2.0000
+\end{bmatrix};
+\]
+
+\subsubsection{Calcular multiplicadores (linha 2)}
+
+\[
+m_{32} = \frac{-1}{-2} = 0.5000, \quad m_{42} = \frac{-1}{-2} = 0.5000;
+\]
+
+\subsubsection{Zerar elementos abaixo do pivô (coluna 2)}
+
+\[
+\begin{aligned}
+L_3 &\leftarrow L_3 - m_{32} \cdot L_2 \\
+L_4 &\leftarrow L_4 - m_{42} \cdot L_2
+\end{aligned}
+\]
+
+\[
+A^{(2)} = \begin{bmatrix}
+2.0000 & 2.0000 & 1.0000 & 1.0000 \\
+0 & -2.0000 & 1.5000 & -1.5000 \\
+0 & 0 & -5.2500 & -2.7500 \\
+0 & 0 & -0.7500 & 0.2500
+\end{bmatrix},
+\quad
+b^{(2)} = \begin{bmatrix}
+7.0000 \\ -2.5000 \\ -5.2500 \\ -0.7500
+\end{bmatrix};
+\]
+
+\subsubsection{Calcular multiplicadores (linha 3)}
+
+\[
+m_{43} = \frac{-0.7500}{-5.2500} = 0.1428;
+\]
+
+\subsubsection{Zerar elementos abaixo do pivô (coluna 3)}
+
+\[
+L_4 \leftarrow L_4 - m_{43} \cdot L_3
+\]
+
+\[
+A^{(3)} = \begin{bmatrix}
+2.0000 & 2.0000 & 1.0000 & 1.0000 \\
+0 & -2.0000 & 1.5000 & -1.5000 \\
+0 & 0 & -5.2500 & -2.7500 \\
+0 & 0 & 0 & 0.6428
+\end{bmatrix},
+\quad
+b^{(3)} = \begin{bmatrix}
+7.0000 \\ -2.5000 \\ -5.2500 \\ 0
+\end{bmatrix};
+\]
+
+\subsection{Fazer as interações}
+
+Consiste em isolar as incógnitas, fazendo as interações para descobrir os valores de $x_1^{(k+1)}$, $x_2^{(k+1)}$, $x_3^{(k+1)}$ e $x_4^{(k+1)}$.
+
+\subsubsection{Isolar as incógnitas}
+
+
+                \begin{align*}
+                    x_1^{(k+1)} &= \frac{1}{2} \cdot [7.0000 - 2.0000x_2^{(k)} - x_3^{(k)} - x_4^{(k)}]\\
+                    x_2^{(k+1)} &= -\frac{1}{2} \cdot [-2.5000 - 1.5000x_3^{(k)} + 1.5000x_4^{(k)}]\\
+                    x_3^{(k+1)} &= -\frac{1}{5.2500} \cdot [-5.2500 + 2.7500x_4^{(k)}]\\
+                    x_4^{(k+1)} &= \frac{1}{0.6428} \cdot [0]
+                \end{align*}
+
+            \subsubsection{Primeira interação (k = 0)}
+
+                \[
+                S_x^{(0)} = (x_1^{(0)} = 0.5000\ x_2^{(0)}= 2.0000,\ x_3^{(0)}= 0.9000\ x_4^{(0)}= 1.2000)^t;
+                \]
+
+                \begin{align*}
+                    x_1^{(1)} &= \frac{1}{2} \cdot [7.0000 - 2.0000x_2^{(0)} - x_3^{(0)} - x_4^{(0)}]\\
+                    x_2^{(1)} &= -\frac{1}{2} \cdot [-2.5000 - 1.5000x_3^{(0)} + 1.5000x_4^{(0)}]\\
+                    x_3^{(1)} &= -\frac{1}{5.2500} \cdot [-5.2500 + 2.7500x_4^{(0)}]\\
+                    x_4^{(1)} &= \frac{1}{0.6428} \cdot [0]
+                \end{align*}
+                \begin{align*}
+                    x_1^{(1)} = 0.7000\\ x_2^{(1)}= 0.6200\\ x_3^{(1)}= 0.3714\\ x_4^{(1)}= 0.0000
+                \end{align*}
+
+            \subsubsection{Segunda interação (k = 1)}
+
+                \[
+                S_x^{(1)} = (x_1^{(1)} = 0.7000\ x_2^{(1)}= 0.6200,\ x_3^{(1)}= 0.3714\ x_4^{(1)}= 0.0000)^t;
+                \]
+                \begin{align*}
+                    x_1^{(2)} &= \frac{1}{2} \cdot [7.0000 - 2.0000x_2^{(1)} - x_3^{(1)} - x_4^{(1)}]\\
+                    x_2^{(2)} &= -\frac{1}{2} \cdot [-2.5000 - 1.5000x_3^{(1)} + 1.5000x_4^{(1)}]\\
+                    x_3^{(2)} &= -\frac{1}{5.2500} \cdot [-5.2500 + 2.7500x_4^{(1)}]\\
+                    x_4^{(2)} &= \frac{1}{0.6428} \cdot [0]
+                \end{align*}
+                \begin{align*}
+                    x_1^{(2)} = 2.6443\\ x_2^{(2)}= 1.5285\\ x_3^{(2)}= 1.0000\\ x_4^{(2)}= 0.0000
+                \end{align*}
+
+            \subsubsection{Terceira interação (k = 2)}
+
+                \[
+                S_x^{(2)} = (x_1^{(2)} = 2.6443\ x_2^{(2)}= 1.5285,\ x_3^{(2)}= 1.0000\ x_4^{(2)}= 0.0000)^t;
+                \]
+
+                \begin{align*}
+                    x_1^{(3)} &= \frac{1}{2} \cdot [7.0000 - 2.0000x_2^{(2)} - x_3^{(2)} - x_4^{(2)}]\\
+                    x_2^{(3)} &= -\frac{1}{2} \cdot [-2.5000 - 1.5000x_3^{(2)} + 1.5000x_4^{(2)}]\\
+                    x_3^{(3)} &= -\frac{1}{5.2500} \cdot [-5.2500 + 2.7500x_4^{(2)}]\\
+                    x_4^{(3)} &= \frac{1}{0.6428} \cdot [0]
+                \end{align*}
+                \begin{align*}
+                    x_1^{(3)} = 1.4715\\ x_2^{(3)}= 2.0000\\ x_3^{(3)}= 1.0000\\ x_4^{(3)}= 0.0000
+                \end{align*}
+
+            \subsubsection{Quarta interação (k = 3)}
+
+                \[
+                S_x^{(3)} = (x_1^{(3)} = 1.4715\ x_2^{(3)}= 2.0000,\ x_3^{(3)}= 1.0000\ x_4^{(3)}= 0.0000)^t;
+                \]
+
+                \begin{align*}
+                    x_1^{(4)} &= \frac{1}{2} \cdot [7.0000 - 2.0000x_2^{(3)} - x_3^{(3)} - x_4^{(3)}]\\
+                    x_2^{(4)} &= -\frac{1}{2} \cdot [-2.5000 - 1.5000x_3^{(3)} + 1.5000x_4^{(3)}]\\
+                    x_3^{(4)} &= -\frac{1}{5.2500} \cdot [-5.2500 + 2.7500x_4^{(3)}]\\
+                    x_4^{(4)} &= \frac{1}{0.6428} \cdot [0]
+                \end{align*}
+                \begin{align*}
+                    x_1^{(4)} = 1.0000\\ x_2^{(4)}= 2.0000\\ x_3^{(4)}= 1.0000\\ x_4^{(4)}= 0.0000
+                \end{align*}
+
+            \subsubsection{Quinta interação (k = 4)}
+
+                \[
+                S_x^{(4)} = (x_1^{(4)} = 1.0000\ x_2^{(4)}= 2.0000,\ x_3^{(4)}= 1.0000\ x_4^{(4)}= 0.0000)^t;
+                \]
+                \begin{align*}
+                    x_1^{(5)} &= \frac{1}{2} \cdot [7.0000 - 2.0000x_2^{(4)} - x_3^{(4)} - x_4^{(4)}]\\
+                    x_2^{(5)} &= -\frac{1}{2} \cdot [-2.5000 - 1.5000x_3^{(4)} + 1.5000x_4^{(4)}]\\
+                    x_3^{(5)} &= -\frac{1}{5.2500} \cdot [-5.2500 + 2.7500x_4^{(4)}]\\
+                    x_4^{(5)} &= \frac{1}{0.6428} \cdot [0]
+                \end{align*}
+                \begin{align*}
+                    x_1^{(5)} = 1.0000\\ x_2^{(5)}= 2.0000\\ x_3^{(5)}= 1.0000\\ x_4^{(5)}= 0.0000
+                \end{align*}
+
+        \subsection{Soluções}
+
+            \begin{align*}
+                S_x^{(0)} = (x_1^{(0)} = 0.5000\ x_2^{(0)}= 2.0000,\ x_3^{(0)}= 0.9000\ x_4^{(0)}= 1.2000)^t;\\
+                S_x^{(1)} = (x_1^{(1)} = 0.7000\ x_2^{(1)}= 0.6200,\ x_3^{(1)}= 0.3714\ x_4^{(1)}= 0.0000)^t;\\
+                S_x^{(2)} = (x_1^{(2)} = 2.6443\ x_2^{(2)}= 1.5285,\ x_3^{(2)}= 1.0000\ x_4^{(2)}= 0.0000)^t;\\
+                S_x^{(3)} = (x_1^{(3)} = 1.4715\ x_2^{(3)}= 2.0000,\ x_3^{(3)}= 1.0000\ x_4^{(3)}= 0.0000)^t;\\
+                S_x^{(4)} = (x_1^{(4)} = 1.0000\ x_2^{(4)}= 2.0000,\ x_3^{(4)}= 1.0000\ x_4^{(4)}= 0.0000)^t;\\
+                S_x^{(5)} = (x_1^{(5)} = 1.0000\ x_2^{(5)}= 2.0000,\ x_3^{(5)}= 1.0000\ x_4^{(5)}= 0.0000)^t;
+            \end{align*}
+
+        \newpage
+
+        \subsection{Código de programação em Linguagem C}
+
+            \begin{minted}[linenos, breaklines]{c}
+#include <stdio.h>
+
+#define N 4  /* Dimensao da matriz - NxN = 4x4 */
+
+void gauss(double A[N][N], double b[N]);
+
+int main()
+{
+     /* Matriz A (4x4) e vetor b */
+    double A[N][N] = {
+        {2, 2, 1, 1},
+        {1, -1, 2, -1},
+        {3, 2, -3, -2},
+        {4, 3, 2, 1}
+    };
+
+    double b[N] = {7, 1, 4, 12};
+
+     /* Resolver o sistema */
+    gauss(A, b);
+
+    return 0;
+}
+
+void gauss(double A[N][N], double b[N])
+{
+    int i, j, k;
+    double multi;
+    double x0[N];
+    double x[N] = {0.5000, 2.0000, 0.9000, 1.2000};
+
+     /* Eliminacao de Gauss (triangular superior) - printa na tela a matriz, seus multiplicadores e a operacao necessaria para tornar uma matriz triangular superior */
+    for (i = 0; i < N - 1; i++)
+    {
+        for (j = i + 1; j < N; j++)
+        {
+            multi = A[j][i] / A[i][i];
+            printf("M%d|%d = %.4f   L%d <- L%d - %.4fL%d \n", j + 1, i + 1, multi, j + 1, j + 1, multi, i + 1);
+            for (k = 0; k < N; k++)
+            {
+                A[j][k] -= multi * A[i][k];
+            }
+            b[j] -= multi * b[i];
+        }
+        printf("\n");
+        for (int linha = 0; linha < N; linha++)
+        {
+            printf("|");
+            for (int coluna = 0; coluna < N; coluna++)
+            {
+                printf("%.4f ", A[linha][coluna]);
+            }
+            printf("| %.4f |\n", b[linha]);
+        }
+        printf("\n");
+    }
+    printf("\n\n");
+    for (int s = 0; s < 6; s++)
+    {
+         /* Mostrar a solucao - Printa todas as 6 solucoes (Contando com a S-0) */
+        printf("Solucao do sistema S-%d: ", s);
+        for (i = 0; i < N; i++)
+        {
+            printf("X%d = %.4f ", i + 1, x[i]);
+        }
+        printf("\n\n");
+         /* Substituicao regressiva - Descobre o valor das variaveis */
+        x[N - 1] = b[N - 1] / A[N - 1][N - 1];
+        for (i = N - 2; i >= 0; i--)
+        {
+            x0[i] = x[i];
+            x[i] = b[i];
+            for (j = i + 1; j < N; j++)
+            {
+                x[i] -= A[i][j] * x0[j];
+            }
+            x[i] /= A[i][i];
+        }
+    }
+}
+            \end{minted}
+
+\subsection{Retorno do código}
+
+\begin{minted}[fontsize=\normalsize, breaklines]{text}
+M2|1 = 0.5000   L2 <- L2 - 0.5000L1
+M3|1 = 1.5000   L3 <- L3 - 1.5000L1
+M4|1 = 2.0000   L4 <- L4 - 2.0000L1
+
+|2.0000 2.0000 1.0000 1.0000 | 7.0000 |
+|0.0000 -2.0000 1.5000 -1.5000 | -2.5000 |
+|0.0000 -1.0000 -4.5000 -3.5000 | -6.5000 |
+|0.0000 -1.0000 0.0000 -1.0000 | -2.0000 |
+
+M3|2 = 0.5000   L3 <- L3 - 0.5000L2
+M4|2 = 0.5000   L4 <- L4 - 0.5000L2
+
+|2.0000 2.0000 1.0000 1.0000 | 7.0000 |
+|0.0000 -2.0000 1.5000 -1.5000 | -2.5000 |
+|0.0000 0.0000 -5.2500 -2.7500 | -5.2500 |
+|0.0000 0.0000 -0.7500 -0.2500 | -0.7500 |
+
+M4|3 = 0.1429   L4 <- L4 - 0.1429L3
+
+|2.0000 2.0000 1.0000 1.0000 | 7.0000 |
+|0.0000 -2.0000 1.5000 -1.5000 | -2.5000 |
+|0.0000 0.0000 -5.2500 -2.7500 | -5.2500 |
+|0.0000 0.0000 0.0000 0.1429 | 0.0000 |
+
+Solucao do sistema S-0: X1 = 0.5000 X2 = 2.0000 X3 = 0.9000 X4 = 1.2000
+Solucao do sistema S-1: X1 = 1.0500 X2 = 1.9250 X3 = 1.0000 X4 = 0.0000
+Solucao do sistema S-2: X1 = 1.0750 X2 = 2.0000 X3 = 1.0000 X4 = 0.0000
+Solucao do sistema S-3: X1 = 1.0000 X2 = 2.0000 X3 = 1.0000 X4 = 0.0000
+Solucao do sistema S-4: X1 = 1.0000 X2 = 2.0000 X3 = 1.0000 X4 = 0.0000
+Solucao do sistema S-5: X1 = 1.0000 X2 = 2.0000 X3 = 1.0000 X4 = 0.0000
+\end{minted}
+
+\newpage
+
+\noindent \section{2ª QUESTÃO} (1,0 PONTOS): Resolver o sistema de equações utilizando a técnica de fatoração LU, admitindo 4 casas decimais nos resultados.
+
+\[
+\left\{
+\begin{aligned}
+2x_1^{(k)} + 2x_2^{(k)} + 6x_3^{(k)} &= -7 \\
+2x_1^{(k)} + 2x_2^{(k)} - x_3^{(k)} &= 7 \\
+6x_1^{(k)} - x_2^{(k)} + 12x_3^{(k)} &= -2
+\end{aligned}
+\right.
+\]
+
+\[
+\boldsymbol{S_x^{(0)}} =
+\left(
+\boldsymbol{x_1^{(0)}} = 0.2000, \quad
+\boldsymbol{x_2^{(0)}} = 1.0000, \quad
+\boldsymbol{x_3^{(0)}} = 0.7000
+\right)
+\]
+
+\[
+\boldsymbol{S_y^{(0)}} =
+\left(
+\boldsymbol{y_1^{(0)}} = 0.0000, \quad
+\boldsymbol{y_2^{(0)}} = 0.0000, \quad
+\boldsymbol{y_3^{(0)}} = 0.0000
+\right)
+\]
+
+\textbf{A.1)} Mostrar a metodologia de eliminação de Gauss.
+
+\textbf{A.2)} Fazer 6 soluções.
+
+\vspace{0.5cm}
+
+(*) Transformar de Sistema para Matriz
+\[
+A =
+\begin{bmatrix}
+2 & 2 & 6 \\
+2 & 2 & -1 \\
+6 & -1 & 12
+\end{bmatrix},
+\quad
+b =
+\begin{bmatrix}
+-7 \\
+7 \\
+-2
+\end{bmatrix}
+\]
+
+\subsection{Pivoteamento Parcial}
+
+Aplicamos permutação para que o maior elemento da coluna 1 (em módulo) fique na diagonal. Trocamos a linha 1 com a linha 3:
+
+\[
+PA =
+\begin{bmatrix}
+6 & -1 & 12 \\
+2 & 2 & -1 \\
+2 & 2 & 6
+\end{bmatrix},
+\quad
+Pb =
+\begin{bmatrix}
+-2 \\
+7 \\
+-7
+\end{bmatrix}
+\]
+
+\subsection{Eliminação de Gauss (Fatoração LU)}
+
+\subsubsection{Zerando abaixo do pivô (coluna 1)}
+
+Multiplicadores:
+
+\[
+m_{21} = \frac{a_{21}}{a_{11}},\quad
+m_{31} = \frac{a_{31}}{a_{11}}
+\]
+
+\[
+m_{21} = \frac{2}{6} = 0.3333,\quad
+m_{31} = \frac{2}{6} = 0.3333
+\]
+
+Atualizando linhas:
+\begin{align*}
+L_2 &\leftarrow L_2 - m_{21} \cdot L_1 \\
+L_3 &\leftarrow L_3 - m_{31} \cdot L_1
+\end{align*}
+\[
+\Rightarrow
+\text{$A^{(1)} =$}
+\begin{bmatrix}
+6.0000 & -1.0000 & 12.0000 \\
+0      & 2.3333  & -5.0000 \\
+0      & 2.3333  & 2.0000
+\end{bmatrix}
+\]
+
+\subsubsection{Zerando elemento (3,2)}
+
+\[
+m_{32} = \frac{a_{32}}{a_{22}}
+\]
+
+\[
+m_{32} = \frac{2.3333}{2.3333} = 1.0000
+\]
+
+\[
+L_3 \leftarrow L_3 - m_{32} \cdot L_2
+\]
+
+\[
+\Rightarrow
+\text{$A^{(2)} =$}
+\begin{bmatrix}
+6.0000 & -1.0000 & 12.0000 \\
+0      & 2.3333  & -5.0000 \\
+0      & 0       & 7.0000
+\end{bmatrix}
+\]
+
+\subsection{Matrizes L e U}
+
+\[
+L =
+\begin{bmatrix}
+1      & 0      & 0 \\
+m_{21}^{(k+1)} & 1      & 0 \\
+m_{31}^{(k+1)} & m_{32}^{(k+1)} & 1
+\end{bmatrix},
+\quad
+U =
+\begin{bmatrix}
+a_{11}^{(k)} & a_{12}^{(k)} & a_{13}^{(k)} \\
+0      & a_{22}^{(k)}  & a_{23}^{(k)} \\
+0      & 0       & a_{33}^{(k)}
+\end{bmatrix}
+\]
+
+\vspace{1cm}
+
+\[
+L =
+\begin{bmatrix}
+1      & 0      & 0 \\
+0.3333 & 1      & 0 \\
+0.3333 & 1.0000 & 1
+\end{bmatrix},
+\quad
+U =
+\begin{bmatrix}
+6.0000 & -1.0000 & 12.0000 \\
+0      & 2.3333  & -5.0000 \\
+0      & 0       & 7.0000
+\end{bmatrix}
+\]
+
+\subsection{Metodologia}
+
+\begin{align*}
+& L_{ij} \cdot y_j^{(k)} = b_j \\
+& U_{ij} \cdot x_j^{(k)} = y_j^{(k)}
+\end{align*}
+
+\begin{equation*}
+\left\{
+\begin{aligned}
+y_1^{(k+1)} &= b_1 \\
+y_2^{(k+1)} &= b_2 - m_{21}^{(k+1)} y_1^{(k)} \\
+y_3^{(k+1)} &= b_3 - m_{31}^{(k+1)} y_1^{(k)} - m_{32}^{(k+1)}y_2^{(k)}
+\end{aligned}
+\right.
+\end{equation*}
+
+\vspace{1cm}
+
+\begin{equation*}
+\left\{
+\begin{aligned}
+x_1^{(k+1)} &= \frac{1}{a_{11}}[y_1^{(k+1)} - ( a_{12}x_2^{(k)} + a_{13}x_3^{(k)})] \\
+x_2^{(k+1)} &= \frac{1}{a_{22}}[y_2^{(k+1)} - a_{23}x_3^{(k)}]  \\
+x_3^{(k+1)} &= \frac{1}{a_{33}}[y_3^{(k+1)}]
+\end{aligned}
+\right.
+\end{equation*}
+
+\subsection{Resolvendo $Ly = Pb$}
+
+\[
+Ly =
+\begin{bmatrix}
+1      & 0      & 0 \\
+0.3333 & 1      & 0 \\
+0.3333 & 1.0000 & 1
+\end{bmatrix}
+\begin{bmatrix}
+y_1^{(1)} \\
+y_2^{(1)} \\
+y_3^{(1)}
+\end{bmatrix}
+=
+\begin{bmatrix}
+-2 \\
+7 \\
+-7
+\end{bmatrix}
+\]
+
+\begin{equation*}
+\left\{
+\begin{aligned}
+y_1^{(k+1)} &= -2 \\
+y_2^{(k+1)} &= 7 - 0.3333 \cdot y_1^{(k)} \\
+y_3^{(k+1)} &= -7 - 0.3333 \cdot y_1^{(k)} - y_2^{(k)}
+\end{aligned}
+\right.
+\end{equation*}
+
+\vspace{0,3 cm}
+
+Isolando $y^{(1)}$, para k = 0, obtemos:
+\begin{align*}
+\boldsymbol{y_1^{(1)}} &= -2 \\
+0.3333 \cdot (0) + y_2^{(1)} &= 7 \Rightarrow \boldsymbol{y_2^{(1)}} = 7.0000 \\
+0.3333 \cdot (0) + 1.0000 \cdot 7.0000 + y_3^{(1)} &= -7 \Rightarrow \boldsymbol{y_3^{(1)}} = -7.0000
+\end{align*}
+
+\[
+\boldsymbol{S_y^{(1)}} =
+(
+\boldsymbol{y_1^{(1)}} = -2.0000,\quad
+\boldsymbol{y_2^{(1)}} = 7.0000,\quad
+\boldsymbol{y_3^{(1)}} = -7.0000
+)
+\]
+
+\subsection{Resolvendo $Ux = y$}
+
+\[
+Ux =
+\begin{bmatrix}
+6.0000 & -1.0000 & 12.0000 \\
+0      & 2.3333  & -5.0000 \\
+0      & 0       & 7.0000
+\end{bmatrix}
+\begin{bmatrix}
+x_1^{(0)} \\
+x_2^{(0)} \\
+x_3^{(0)}
+\end{bmatrix}
+=
+\begin{bmatrix}
+-2.0000 \\
+7.0000 \\
+-7.0000
+\end{bmatrix}
+\]
+
+\begin{align*}
+x_3^{(1)} &= 0,1428[- 7.0000]\Rightarrow \boldsymbol{x_3^{(1)}} = - 0.9996 \\
+x_2^{(1)} &= 0.4285[7.0000 + (5.0000 * 0.7000)] \Rightarrow \boldsymbol{x_2^{(1)}} = 4,4992 \\
+x_1^{(1)} &= 0.1666[-2.0000 + 1.0000 - (12.0000 * 0.7000] \Rightarrow \boldsymbol{x_1^{(1)}} = -1.5660
+\end{align*}
+
+\[
+\boldsymbol{S_x^{(1)}} =
+(
+\boldsymbol{x_1^{(1)}} = -1.5660,\quad
+\boldsymbol{x_2^{(1)}} = 4.4992,\quad
+\boldsymbol{x_3^{(1)}} = -1.5660
+)
+\]
+
+\subsection{Iterações (de k = 0 a k = 5)}
+Assim, aplicando esse método para todas as 6 iterações (de k = 0 a k = 5), obteremos: \\
+
+Iteração 1:
+
+\[
+\boldsymbol{S_x^{(0)}} =
+\left(
+\boldsymbol{x_1^{(0)}} = 0.2000, \quad
+\boldsymbol{x_2^{(0)}} = 1.0000, \quad
+\boldsymbol{x_3^{(0)}} = 0.7000
+\right)
+\]
+
+Iteração 2:
+
+\[
+\boldsymbol{S_x^{(1)}} =
+\left(
+\boldsymbol{x_1^{(1)}} = -1.5660, \quad
+\boldsymbol{x_2^{(1)}} = 4.4992, \quad
+\boldsymbol{x_3^{(1)}} = -0.9996
+\right)
+\]
+
+Iteração 3:
+
+\[
+\boldsymbol{S_x^{(2)}} =
+\left(
+\boldsymbol{x_1^{(2)}} = 2.4135, \quad
+\boldsymbol{x_2^{(2)}} = 0.8578, \quad
+\boldsymbol{x_3^{(2)}} = -0.9996
+\right)
+\]
+
+Iteração 4:
+
+\[
+\boldsymbol{S_x^{(3)}} =
+\left(
+\boldsymbol{x_1^{(3)}} = 1.8081, \quad
+\boldsymbol{x_2^{(3)}} = 0.8578, \quad
+\boldsymbol{x_3^{(3)}} = -0.9996
+\right)
+\] \\
+
+Iteração 5:
+
+\[
+\boldsymbol{S_x^{(4)}} =
+\left(
+\boldsymbol{x_1^{(4)}} = 1.8081, \quad
+\boldsymbol{x_2^{(4)}} = 0.8578, \quad
+\boldsymbol{x_3^{(4)}} = -0.9996
+\right)
+\]
+
+ Iteração 6:
+
+\[
+\boldsymbol{S_x^{(5)}} =
+\left(
+\boldsymbol{x_1^{(5)}} = 1.8081, \quad
+\boldsymbol{x_2^{(5)}} = 0.8578, \quad
+\boldsymbol{x_3^{(5)}} = -0.9996
+\right)
+\]
+
+\newpage
+
+\noindent \section{3ª QUESTÃO} (0,5 PONTO): Resolver o sistema de equações utilizando a técnica de Cholesky, admitindo 4 casas decimais nos resultados.
+
+\[
+\begin{cases}
+5x_1^{(k)} + 1x_2^{(k)} + 7x_3^{(k)} = 2 \\
+1x_1^{(k)} + 2x_2^{(k)} + 2x_3^{(k)} = 3 \\
+7x_1^{(k)} + 2x_2^{(k)} + 12x_3^{(k)} = 3
+\end{cases}
+\]
+\begin{align*}
+S_y^{(0)} &= ( y_1^{(0)} = 0 \quad y_2^{(0)} = 0 \quad y_3^{(0)} = 0 )^{t} \\
+S_x^{(0)} &= ( x_1^{(0)} = 0.7 \quad x_2^{(0)} = 0.1 \quad x_3^{(0)} = 0.3 )^{t}
+\end{align*}
+
+\textbf{A.1)} Mostrar a metodologia da técnica de Cholesky.
+
+\textbf{A.2)} Fazer 6 soluções.
+
+\vspace{0.5cm}
+
+\subsection{Fundamentação Teórica}
+
+A técnica de solução pelo \textbf{método de Cholesky} serve para resolver sistemas lineares da forma \( Ax = b \), em que a matriz \( A \) é simétrica e definida positiva.
+
+\vspace{0.3cm}
+O método consiste em decompor a matriz \( A \) como \( A = L \cdot L^t \), onde \( L \) é uma matriz triangular inferior e \( L^t \) é a transposta de \( L \), ou seja, uma matriz triangular superior. A solução do sistema é feita em duas etapas:
+
+\begin{enumerate}
+    \item Resolver \( Ly = b \) por substituição direta.
+    \item Resolver \( L^T x = y \) por substituição reversa.
+\end{enumerate}
+
+Esse método é mais rápido e preciso do que a eliminação de Gauss para esse tipo de matriz, porque aproveita as características de \( A \) para fazer menos cálculos e reduzir erros numéricos. Isso também significa que ele exige menos esforço do computador, sendo mais eficiente em termos de tempo e uso de recursos.
+
+\subsection{Aplicação do Método de Cholesky}
+
+Para sua aplicação, devem ser atendidas as seguintes condições:
+
+\begin{itemize}
+    \item A matriz $A$ dos coeficientes deve ser simétrica: $a_{ij} = a_{ji}$.
+    \item A matriz $A$ deve ser positiva definida.
+\end{itemize}
+
+\[
+A = \begin{bmatrix}
+5 & 1 & 7 \\
+1 & 2 & 2 \\
+7 & 2 & 12
+\end{bmatrix}
+\quad
+A^t = \begin{bmatrix}
+5 & 1 & 7 \\
+1 & 2 & 2 \\
+7 & 2 & 12
+\end{bmatrix}
+\]
+
+\[
+A = A^t \Rightarrow \text{Logo, } A \text{ é simétrica.}
+\]
+
+\vspace{0.2cm}
+\noindent
+\textbf{Obs.:} Neste caso, já iremos assumir diretamente que a matriz é positiva. Porém, caso não tivéssemos certeza dessa informação, poderíamos:
+
+\begin{itemize}
+    \item Calcular os autovalores da matriz $A$, que devem ser todos positivos;
+    \item Verificar se os \textit{minores principais} são positivos.
+\end{itemize}
+
+Caso a matriz não seja positiva definida, e não saibamos disso, a aplicação do método pode falhar — por exemplo, ao tentar calcular a raiz quadrada de um número negativo.
+
+\subsection{Decomposição da matriz $A$ em $G$ e $G^t$}
+
+Satisfazendo as duas condições, podemos prosseguir com a aplicação do método e dividir a matriz $A$ da seguinte forma:
+
+\[
+A = G \cdot G^t
+\]
+
+Assim, teremos as seguintes matrizes:
+
+\[
+A = \begin{bmatrix}
+5 & 1 & 7 \\
+1 & 2 & 2 \\
+7 & 2 & 12
+\end{bmatrix},
+\quad
+G = \begin{bmatrix}
+g_{11} & 0 & 0 \\
+g_{21} & g_{22} & 0 \\
+g_{31} & g_{32} & g_{33}
+\end{bmatrix},
+\quad
+G^t = \begin{bmatrix}
+g_{11} & g_{21} & g_{31} \\
+0 & g_{22} & g_{32} \\
+0 & 0 & g_{33}
+\end{bmatrix}
+\]
+
+\vspace{0.3cm}
+Com base nos elementos de $A$, determinam-se os $g_{ij}$ por aplicação direta das fórmulas de Cholesky, conforme descrito a seguir para cada coluna.
+
+\subsubsection{Coluna 1:}
+
+\[
+\begin{bmatrix}
+5 \\ 1 \\ 7
+\end{bmatrix}
+=
+\begin{bmatrix}
+g_{11} & 0 & 0 \\
+g_{21} & g_{22} & 0 \\
+g_{31} & g_{32} & g_{33}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+g_{11} \\ 0 \\ 0
+\end{bmatrix}
+\]
+
+\[
+g_{11}^2 = 5 \Rightarrow \underline {g_{11} = 2,2360}
+\]
+\[
+g_{21} \cdot g_{11} = 1 \Rightarrow \underline {g_{21} = 0,4472}
+\]
+
+\[
+g_{31} \cdot g_{11} = 7 \Rightarrow \underline {g_{31} = 3,1304}
+\]
+
+\subsubsection{Coluna 2}
+
+\[
+\begin{bmatrix}
+1 \\
+2 \\
+2
+\end{bmatrix}
+=
+\begin{bmatrix}
+g_{11} & 0 & 0 \\
+g_{21} & g_{22} & 0 \\
+g_{31} & g_{32} & g_{33}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+g_{21} \\
+g_{22} \\
+0
+\end{bmatrix}
+\]
+
+\[
+g_{11} \cdot g_{21} = 1 \Rightarrow g_{21} = 0.4472
+\]
+\[
+\text{(Não era necessário calcular } g_{21} \text{ pois já fizemos isso na coluna anterior)}
+\]
+\[
+g_{21}^2 + g_{22}^2 = 2 \Rightarrow \left(\frac{1}{\sqrt{5}}\right)^2 + g_{22}^2 = 2 \Rightarrow g_{22}^2 = 2 - \frac{1}{5} \Rightarrow g_{22} = \frac{\sqrt{9}}{\sqrt{5}} \Rightarrow \underline {g_{22} = 1.3416}
+\]
+\[
+g_{31} \cdot g_{21} + g_{32} \cdot g_{22} = 2 \Rightarrow \frac{7}{\sqrt{5}} \cdot \frac{1}{\sqrt{5}} + g_{32} \cdot \frac{3}{\sqrt{5}} = 2 \Rightarrow \frac{3}{\sqrt{5}} \cdot g_{32} = 2 - \frac{7}{5} \Rightarrow \underline {g_{32} = 0.4472}
+\]
+
+\subsubsection{Coluna 3}
+
+\[
+\begin{bmatrix}
+7 \\
+2 \\
+12
+\end{bmatrix}
+=
+\begin{bmatrix}
+g_{11} & 0 & 0 \\
+g_{21} & g_{22} & 0 \\
+g_{31} & g_{32} & g_{33}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+g_{31} \\
+g_{32} \\
+g_{33}
+\end{bmatrix}
+\]
+
+\[
+g_{11} \cdot g_{31} = 7 \Rightarrow \text{(Já calculamos essas variáveis anteriormente)}
+\]
+\[
+g_{21} \cdot g_{31} + g_{22} \cdot g_{32} = 2 \Rightarrow \text{(Já calculamos essas variáveis anteriormente)}
+\]
+\[
+g_{31}^2 + g_{32}^2 + g_{33}^2 = 12 \Rightarrow \frac{49}{5} + \frac{5}{25} + g_{33}^2 = 12 \Rightarrow \underline {g_{33} = 1.4142}
+\]
+
+\subsubsection{Matrizes \( G \) e \( G^T \)}
+
+\[
+G =
+\begin{bmatrix}
+2.2360 & 0 & 0 \\
+0.4472 & 1.3416 & 0 \\
+3.1304 & 0.4472 & 1.4142
+\end{bmatrix}, \quad
+G^t =
+\begin{bmatrix}
+2.2360 & 0.4472 & 3.1304 \\
+0 & 1.3416 & 0.4472 \\
+0 & 0 & 1.4142
+\end{bmatrix}
+\]
+
+\vspace{3em}
+
+\noindent No procedimento acima obtivemos todos os valores da matriz \( G \). Com eles, podemos resolver os sistemas para encontrar \( y_j^k \) e \( x_j^k \) conforme as equações abaixo.
+
+\[
+\underline{\text{(1)} \quad g_{ij} \cdot y_j^{(k)} = b_i}, \quad i = 1, 2, 3; \quad j = 1, 2, 3
+\]
+
+\[
+\underline{\text{(2)} \quad g_{ij}^t \cdot x_j^{(k)} = y_i^{(k)}}, \quad i = 1, 2, 3; \quad j = 1, 2, 3
+\]
+
+\subsection{Resolução dos sistemas para \(y_j^{(k)}\) e \(x_j^{(k)}\)}
+
+\subsubsection{Coeficientes \(y_j^{(k)}\)}
+
+\noindent
+O sistema de equações é dado por:
+
+\[
+g_{ij} \cdot y_j^{(k)} = b_i, \quad i = 1,2,3;\quad j = 1,2,3
+\]
+
+\noindent
+Na forma de multiplicação matricial chegamos ao sistema abaixo:
+
+\[
+\begin{bmatrix}
+g_{11} & 0      & 0 \\
+g_{21} & g_{22} & 0 \\
+g_{31} & g_{32} & g_{33}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+y_1^{(k)} \\
+y_2^{(k)} \\
+y_3^{(k)}
+\end{bmatrix}
+=
+\begin{bmatrix}
+b_1 \\
+b_2 \\
+b_3
+\end{bmatrix}
+\]
+
+\noindent
+Resolvendo a multiplicação matricial, obtemos o seguinte sistema de equações:
+\noindent
+\begin{align*}
+&\text{(1)} \quad g_{11} \cdot y_1^{(k)} = b_1 \\
+&\text{(2)} \quad g_{21} \cdot y_1^{(k)} + g_{22} \cdot y_2^{(k)} = b_2 \\
+&\text{(3)} \quad g_{31} \cdot y_1^{(k)} + g_{32} \cdot y_2^{(k)} + g_{33} \cdot y_3^{(k)} = b_3
+\end{align*}
+
+\noindent
+\textbf{Agora, isolando as variáveis \( y_1^{(k)}, y_2^{(k)} \) e \( y_3^{(k)} \):}
+
+\[
+\left\{
+\begin{aligned}
+y_1^{(k)} &= \frac{b_1}{g_{11}} \\
+y_2^{(k)} &= \frac{1}{g_{22}} \left[ b_2 - \left(g_{21} \cdot y_1^{(k)}\right) \right] \\
+y_3^{(k)} &= \frac{1}{g_{33}} \left[ b_3 - \left(g_{31} \cdot y_1^{(k)} + g_{32} \cdot y_2^{(k)}\right) \right]
+\end{aligned}
+\right.
+\]
+\[\]
+\[\]
+\noindent
+Como a questão nos dá uma solução inicial:
+
+\[
+S_y^{(0)} = \left( y_1^{(0)} = 0 \quad y_2^{(0)} = 0 \quad y_3^{(0)} = 0 \right)^{t}
+\]
+
+\noindent
+Podemos substituí-los juntamente com os valores da matriz \( G \) para obter \( y_j^{(k + 1)} \).
+
+\[
+\left\{
+\begin{aligned}
+y_1^{(k + 1)} &= \frac{2}{2.2360} = 0.8944 \\
+y_2^{(k + 1)} &= \frac{1}{1.3416} \left[ 3 - \left(0.4472 \cdot 0\right) \right] = 2.2360 \\
+y_3^{(k + 1)} &= \frac{1}{1.4142} \left[ 3 - \left(3.1304 \cdot 0 + 0.4472 \cdot 0\right) \right] = 2.1213
+\end{aligned}
+\right.
+\]
+
+Logo, temos a solução:
+
+\[
+\boldsymbol{S_y^{(k + 1)}} = \left( \boldsymbol{y_1^{(k + 1)}} = \mathbf{0.8944} \quad \boldsymbol{y_2^{(k + 1)}} = \mathbf{2.2360} \quad \boldsymbol{y_3^{(k + 1)}} = \mathbf{2.1213} \right)^{t}
+\]
+
+Com isso, podemos resolver a matriz triangular superior para encontrar valores de \( x_j(k) \).
+
+\vspace{0.3cm}
+
+\uline{Cabe destacar que o conjunto solução \( S_y^{(k + 1)} = [\ldots] \), obtido acima, permanece constante. Ou seja, será o mesmo utilizado em todas as iterações subsequentes.}
+
+\subsubsection{Coeficientes \(x_j^{(k)}\)}
+
+Montando o sistema.
+\[
+g_{ij} \cdot y_j^{(k)} = b_i, \quad i = 1, 2, 3; \quad j = 1, 2, 3
+\]
+
+Sistema obtido pelo desenvolvimento das matrizes:
+\[
+\begin{bmatrix}
+g_{11} & g_{21} & g_{31} \\
+0 & g_{22} & g_{32} \\
+0 & 0 & g_{33}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+x_1^{(k)} \\
+x_2^{(k)} \\
+x_3^{(k)}
+\end{bmatrix}
+=
+\begin{bmatrix}
+y_1^{(k)} \\
+y_2^{(k)} \\
+y_3^{(k)}
+\end{bmatrix}
+\]
+
+Fazendo os produtos, chegamos às seguintes equações:
+\begin{align*}
+&\text{(1)} \quad g_{11} \cdot x_1^{(k)} + g_{21} \cdot x_2^{(k)} + g_{31} \cdot x_3^{(k)} = y_1^{(k)} \\
+&\text{(2)} \quad g_{22} \cdot x_2^{(k)} + g_{32} \cdot x_3^{(k)} = y_2^{(k)} \\
+&\text{(3)} \quad g_{33} \cdot x_3^{(k)} = y_3^{(k)}
+\end{align*}
+\[\]
+\textbf{Isolando $x_j^{(k)}$ em cada equação:}
+
+\vspace{0.5cm}
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(k+1)} &= \frac{1}{g_{11}} \left[ y_1^{(k+1)} - \left(g_{21} \cdot x_2^{(k)} + g_{31} \cdot x_3^{(k)}\right) \right] \\
+x_2^{(k+1)} &= \frac{1}{g_{22}} \left[ y_2^{(k+1)} - \left(g_{32} \cdot x_3^{(k)}\right) \right] \\
+x_3^{(k+1)} &= \frac{1}{g_{33}} \cdot y_3^{(k+1)} \\
+\end{aligned}
+\right.
+\]
+
+\vspace{0.5cm}
+
+Com o sistema acima basta introduzir os valores de \textbf{$k$} (para cada iteração) e substituir os valores numéricos da matriz $G$ e do conjunto solução $S_y^{(k + 1)} = [\ldots]$ já calculados anteriormente.
+
+Dessa forma encontramos um novo conjunto solução para $x_j^{k+1}$.
+
+Realizaremos o processo 5 vezes ($k=0,1,2,3,4$) para obtermos 5 soluções $x_j^{(k)}$.
+
+O enunciado pede 6 soluções, mas já entregou 1, por isso faremos apenas mais 5 iterações.
+
+\subsection{Iterações e Soluções}
+
+\subsubsection{1ª iteração - k = 0}
+
+Substituindo os valores de $k$ e $g_{ij}$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(0+1)} &= \frac{1}{2.2360} \left[ y_1^{(0+1)} - \left(0.4472 \cdot x_2^{(0)} + 3.1304 \cdot x_3^{(0)}\right) \right] \\
+x_2^{(0+1)} &= \frac{1}{1.3416} \left[ y_2^{(0+1)} - \left(0.4472 \cdot x_3^{(0)}\right) \right] \\
+x_3^{(0+1)} &= \frac{1}{1.4142} \cdot y_3^{(0+1)} \\
+\end{aligned}
+\right.
+\]
+
+Substituindo os valores de $x_j^{0}$ e $y_j$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(1)} &= \frac{1}{2.2360} \left[ 0.8944 - \left(0.4472 \cdot 0.1000 + 3.1304 \cdot 0.3000\right) \right] \\
+x_2^{(1)} &= \frac{1}{1.3416} \left[ 2.2360 - \left(0.4472 \cdot 0.3000\right) \right] \\
+x_3^{(1)} &= \frac{1}{1.4142} \cdot 2.1213 \\
+\end{aligned}
+\right.
+\]
+
+Realizando as operações:
+\[
+\left\{
+\begin{aligned}
+x_1^{(1)} &= - 0.0400 \\
+x_2^{(1)} &= 1.5667 \\
+x_3^{(1)} &= 1.5000 \\
+\end{aligned}
+\right.
+\]
+
+Conjunto solução:
+\begin{align*}
+S_x^{(1)} &= ( x_1^{(1)} = -0.0400 \quad x_2^{(1)} = 1.5667 \quad x_3^{(1)} = 1.5000 )^{t}
+\end{align*}
+
+\subsubsection{2ª iteração - k = 1}
+
+Substituindo os valores de $k$ e $g_{ij}$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(1+1)} &= \frac{1}{2.2360} \left[ y_1^{(1+1)} - \left(0.4472 \cdot x_2^{(1)} + 3.1304 \cdot x_3^{(1)}\right) \right] \\
+x_2^{(1+1)} &= \frac{1}{1.3416} \left[ y_2^{(1+1)} - \left(0.4472 \cdot x_3^{(1)}\right) \right] \\
+x_3^{(1+1)} &= \frac{1}{1.4142} \cdot y_3^{(1+1)} \\
+\end{aligned}
+\right.
+\]
+
+Substituindo os valores de $x_j^{1}$ e $y_j$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(2)} &= \frac{1}{2.2360} \left[ 0.8944 - \left(0.4472 \cdot 1.5667 + 3.1304 \cdot 1.5000\right) \right] \\
+x_2^{(2)} &= \frac{1}{1.3416} \left[ 2.2360 - \left(0.4472 \cdot 1.5000\right) \right] \\
+x_3^{(2)} &= \frac{1}{1.4142} \cdot 2.1213 \\
+\end{aligned}
+\right.
+\]
+
+Realizando as operações:
+\[
+\left\{
+\begin{aligned}
+x_1^{(1)} &= - 2.0133 \\
+x_2^{(1)} &= 1.1667 \\
+x_3^{(1)} &= 1.5000 \\
+\end{aligned}
+\right.
+\]
+
+Conjunto solução:
+\begin{align*}
+S_x^{(2)} &= ( x_1^{(2)} = -2.0133 \quad x_2^{(2)} = 1.1667 \quad x_3^{(2)} = 1.5000 )^{t}
+\end{align*}
+
+\subsubsection{3ª iteração - k = 2}
+
+Substituindo os valores de $k$ e $g_{ij}$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(2+1)} &= \frac{1}{2.2360} \left[ y_1^{(2+1)} - \left(0.4472 \cdot x_2^{(2)} + 3.1304 \cdot x_3^{(2)}\right) \right] \\
+x_2^{(2+1)} &= \frac{1}{1.3416} \left[ y_2^{(2+1)} - \left(0.4472 \cdot x_3^{(2)}\right) \right] \\
+x_3^{(2+1)} &= \frac{1}{1.4142} \cdot y_3^{(2+1)} \\
+\end{aligned}
+\right.
+\]
+
+Substituindo os valores de $x_j^{2}$ e $y_j$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(3)} &= \frac{1}{2.2360} \left[ 0.8944 - \left(0.4472 \cdot 1.1667 + 3.1304 \cdot 1.5000\right) \right] \\
+x_2^{(3)} &= \frac{1}{1.3416} \left[ 2.2360 - \left(0.4472 \cdot 1.5000\right) \right] \\
+x_3^{(3)} &= \frac{1}{1.4142} \cdot 2.1213 \\
+\end{aligned}
+\right.
+\]
+
+Realizando as operações:
+\[
+\left\{
+\begin{aligned}
+x_1^{(3)} &= - 1.9334 \\
+x_2^{(3)} &= 1.1667 \\
+x_3^{(3)} &= 1.5000 \\
+\end{aligned}
+\right.
+\]
+
+Conjunto solução:
+\begin{align*}
+S_x^{(3)} &= ( x_1^{(3)} = - 1.9334 \quad x_2^{(3)} = 1.1667 \quad x_3^{(3)} = 1.5000 )^{t}
+\end{align*}
+
+\subsubsection{4ª iteração - k = 3}
+
+Substituindo os valores de $k$ e $g_{ij}$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(3+1)} &= \frac{1}{2.2360} \left[ y_1^{(3+1)} - \left(0.4472 \cdot x_2^{(3)} + 3.1304 \cdot x_3^{(3)}\right) \right] \\
+x_2^{(3+1)} &= \frac{1}{1.3416} \left[ y_2^{(3+1)} - \left(0.4472 \cdot x_3^{(3)}\right) \right] \\
+x_3^{(3+1)} &= \frac{1}{1.4142} \cdot y_3^{(3+1)} \\
+\end{aligned}
+\right.
+\]
+
+Substituindo os valores de $x_j^{3}$ e $y_j$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(4)} &= \frac{1}{2.2360} \left[ 0.8944 - \left(0.4472 \cdot 1.1667 + 3.1304 \cdot 1.5000\right) \right] \\
+x_2^{(4)} &= \frac{1}{1.3416} \left[ 2.2360 - \left(0.4472 \cdot 1.5000\right) \right] \\
+x_3^{(4)} &= \frac{1}{1.4142} \cdot 2.1213 \\
+\end{aligned}
+\right.
+\]
+
+Realizando as operações:
+\[
+\left\{
+\begin{aligned}
+x_1^{(4)} &= - 1.9334 \\
+x_2^{(4)} &= 1.1667 \\
+x_3^{(4)} &= 1.5000 \\
+\end{aligned}
+\right.
+\]
+
+Conjunto solução:
+\begin{align*}
+S_x^{(4)} &= ( x_1^{(4)} = - 1.9334 \quad x_2^{(4)} = 1.1667 \quad x_3^{(4)} = 1.5000 )^{t}
+\end{align*}
+
+\subsubsection{5ª iteração - k = 4}
+
+Substituindo os valores de $k$ e $g_{ij}$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(4+1)} &= \frac{1}{2.2360} \left[ y_1^{(4+1)} - \left(0.4472 \cdot x_2^{(4)} + 3.1304 \cdot x_3^{(4)}\right) \right] \\
+x_2^{(4+1)} &= \frac{1}{1.3416} \left[ y_2^{(4+1)} - \left(0.4472 \cdot x_3^{(4)}\right) \right] \\
+x_3^{(4+1)} &= \frac{1}{1.4142} \cdot y_3^{(4+1)} \\
+\end{aligned}
+\right.
+\]
+
+Substituindo os valores de $x_j^{4}$ e $y_j$:
+
+\[
+\left\{
+\begin{aligned}
+x_1^{(5)} &= \frac{1}{2.2360} \left[ 0.8944 - \left(0.4472 \cdot 1.1667 + 3.1304 \cdot 1.5000\right) \right] \\
+x_2^{(5)} &= \frac{1}{1.3416} \left[ 2.2360 - \left(0.4472 \cdot 1.5000\right) \right] \\
+x_3^{(5)} &= \frac{1}{1.4142} \cdot 2.1213 \\
+\end{aligned}
+\right.
+\]
+
+Realizando as operações:
+\[
+\left\{
+\begin{aligned}
+x_1^{(5)} &= - 1.9334 \\
+x_2^{(5)} &= 1.1667 \\
+x_3^{(5)} &= 1.5000 \\
+\end{aligned}
+\right.
+\]
+
+Conjunto solução:
+\begin{align*}
+S_x^{(5)} &= ( x_1^{(5)} = - 1.9334 \quad x_2^{(5)} = 1.1667 \quad x_3^{(5)} = 1.5000 )^{t}
+\end{align*}
+
+\subsection{Soluções}
+\begin{align*}
+S_x^{(0)} &= ( x_1^{(0)} = 0.7 \quad x_2^{(0)} = 0.1 \quad x_3^{(0)} = 0.3 )^{t} \\
+S_x^{(1)} &= ( x_1^{(1)} = -0.0400 \quad x_2^{(1)} = 1.5667 \quad x_3^{(1)} = 1.5000 )^{t} \\
+S_x^{(2)} &= ( x_1^{(2)} = -2.0133 \quad x_2^{(2)} = 1.1667 \quad x_3^{(2)} = 1.5000 )^{t} \\
+S_x^{(3)} &= ( x_1^{(3)} = - 1.9334 \quad x_2^{(3)} = 1.1667 \quad x_3^{(3)} = 1.5000 )^{t} \\
+S_x^{(4)} &= ( x_1^{(4)} = - 1.9334 \quad x_2^{(4)} = 1.1667 \quad x_3^{(4)} = 1.5000 )^{t} \\
+S_x^{(5)} &= ( x_1^{(5)} = - 1.9334 \quad x_2^{(5)} = 1.1667 \quad x_3^{(5)} = 1.5000 )^{t}
+\end{align*}
+
+\end{document}
